@@ -1,5 +1,30 @@
 import express from 'express';
 import { envConfig } from './env/env';
-var app = express();
+import { dataSource } from './data-source';
+import { requestRouter } from './requests/requestst.router';
 
-const PORT = envConfig.get('API_PORT');
+const port = envConfig.get('API_PORT');
+
+var app = express();
+app.use(express.json());
+app.use("/requests", requestRouter);
+
+
+app.get('/', (req, res) => {
+	res.send('Hello, World!');
+});
+
+async function main() {
+	dataSource.initialize().then(() => {
+		console.log("Database connected");
+	}).catch((error) => {
+		console.error("Database connection failed", error);
+	});
+
+	app.listen(port, () => {
+		console.log(`Server is running at http://localhost:${port}`);
+	});
+
+}
+
+main();
