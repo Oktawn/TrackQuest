@@ -9,5 +9,5 @@ export const dataSource = new DataSource({
   password: envConfig.get("DB_PASSWORD"),
   database: envConfig.get("DB_NAME"),
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-  synchronize: false
+  synchronize: true
 });

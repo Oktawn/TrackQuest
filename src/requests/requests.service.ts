@@ -74,7 +74,7 @@ export class RequestService {
   }
   async getWithFilters(dateFrom: string, dateTo?: string) {
     try {
-      const dateFromParsed = moment.utc(dateFrom, "DD.MM.YYYY").startOf("day");
+      const dateFromParsed = moment(dateFrom, "DD.MM.YYYY").startOf("day");
       const dateToParsed = dateTo ? moment(dateTo, "DD.MM.YYYY") : moment(dateFromParsed).endOf("day");
       if (!dateFromParsed || !dateToParsed) {
         throw new Error("Invalid date format");
